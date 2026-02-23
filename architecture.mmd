@@ -1,0 +1,12 @@
+C4Container
+    title Cloud Task Manager - C4 Level 2 Diagram
+
+    Person(user, "User", "Application user via browser")
+
+    Container(frontend, "Frontend", "React 19 + Vite", "User interface running in browser")
+    Container(backend, "Backend API", "Node.js 24 + Express", "REST API handling business logic")
+    ContainerDb(database, "Azure SQL Database", "SQL Server", "Stores tasks and users")
+
+    Rel(user, frontend, "Uses", "HTTPS 443")
+    Rel(frontend, backend, "Calls REST API", "HTTPS 443 - JSON")
+    Rel(backend, database, "Reads/Writes data", "TCP 1433 - TDS")
