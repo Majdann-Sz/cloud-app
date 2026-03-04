@@ -48,7 +48,6 @@ Aplikacja została zaprojektowana w oparciu o architekturę trójwarstwową:
 Komunikacja między warstwami odbywa się z wykorzystaniem protokołu HTTPS (REST API) oraz TCP (połączenie z bazą danych).
 
 ---
-
 ## Status projektu
 
 * [x] **Artefakt 1:** Architektura i struktura folderów.
