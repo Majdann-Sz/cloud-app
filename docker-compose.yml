@@ -1,22 +1,25 @@
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "8081:5173"
-    depends_on:
-      - backend
-
-  backend:
+  api:
     build: ./backend
+    container_name: tasks-api
     ports:
-      - "5000:5000"
+      - "8081:5000"
     depends_on:
       - db
+    restart: always
 
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
     environment:
-      SA_PASSWORD: "YourStrong!Passw0rd"
-      ACCEPT_EULA: "Y"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tasksdb
     ports:
-      - "1433:1433"
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

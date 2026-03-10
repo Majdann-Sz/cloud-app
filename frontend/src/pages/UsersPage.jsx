@@ -1,25 +1,47 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
+function UsersPage() {
+const [users, setUsers] = useState([]);
 
-export default function UsersPage() {
-  const [users, setUsers] = useState([]);
+useEffect(() => {
+fetchUsers();
+}, []);
 
-  useEffect(() => {
-    axios.get(`${API_URL}/users`)
-      .then(res => setUsers(res.data))
-      .catch(err => console.error(err));
-  }, []);
+const fetchUsers = async () => {
+try {
+const response = await fetch("/api/users");
+const data = await response.json();
 
-  return (
-    <div>
-      <h1>Lista użytkowników</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  console.log("API RESPONSE:", data);
+
+  if (Array.isArray(data)) {
+    setUsers(data);
+  } else if (Array.isArray(data.$values)) {
+    setUsers(data.$values);
+  } else {
+    setUsers([]);
+  }
+} catch (error) {
+  console.error("Fetch error:", error);
+  setUsers([]);
 }
+
+
+};
+
+return ( <div> <h1>Users</h1>
+
+
+  {Array.isArray(users) &&
+    users.map((user) => (
+      <div key={user.id}>
+        {user.name}
+      </div>
+    ))}
+</div>
+
+
+);
+}
+
+export default UsersPage;
