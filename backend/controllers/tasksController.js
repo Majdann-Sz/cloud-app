@@ -2,9 +2,15 @@ let tasks = [
   { id: 1, title: "Task 1" },
   { id: 2, title: "Task 2" }
 ];
-
+const toTaskDto = (task) => {
+  return {
+    id: task.id,
+    title: task.title
+  };
+};
 exports.getTasks = (req, res) => {
-  res.json(tasks);
+  const dto = tasks.map(toTaskDto);
+  res.json(dto);
 };
 
 exports.getTaskById = (req, res) => {
@@ -16,7 +22,7 @@ exports.getTaskById = (req, res) => {
     });
   }
 
-  res.json(task);
+  res.json(toTaskDto(task));
 };
 
 exports.createTask = (req, res) => {
