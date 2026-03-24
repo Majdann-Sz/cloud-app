@@ -52,3 +52,29 @@ Komunikacja między warstwami odbywa się z wykorzystaniem protokołu HTTPS (RES
 
 * [x] **Artefakt 1:** Architektura i struktura folderów.
 * [x] **Artefakt 2:** Środowisko wielokontenerowe uruchomione lokalnie (Docker Compose).
+* [x] **Artefakt 5:** System gotowy na chmurę.
+
+- Backend: Node.js + Express
+- Frontend: React (Vite)
+- Database: PostgreSQL
+- Docker + Docker Compose
+
+## Funkcjonalności
+
+- REST API CRUD dla tasks
+- React UI do dodawania zadań
+- Persistent PostgreSQL volume
+- Init.sql migrations
+- Dockerized environment
+
+## Uruchomienie projektu
+
+Backend + DB:
+
+docker compose up --build
+
+Frontend:
+
+cd frontend
+npm install
+npm run dev
