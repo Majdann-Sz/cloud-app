@@ -4,19 +4,23 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
 
+  const API_URL =
+    "https://tasks-api-wrx86301-h9ckdycrbbejfpa6.germanywestcentral-01.azurewebsites.net/tasks";
+
   useEffect(() => {
-    fetch("http://localhost:8081/tasks")
-      .then(res => res.json())
-      .then(data => setTasks(data));
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then((data) => setTasks(data))
+      .catch((err) => console.error("Fetch error:", err));
   }, []);
 
   const addTask = async () => {
-    const res = await fetch("http://localhost:8081/tasks", {
+    const res = await fetch(API_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title })
+      body: JSON.stringify({ title }),
     });
 
     const newTask = await res.json();
@@ -37,7 +41,7 @@ function App() {
       <button onClick={addTask}>Add Task</button>
 
       <ul>
-        {tasks.map(task => (
+        {tasks.map((task) => (
           <li key={task.id}>{task.title}</li>
         ))}
       </ul>
