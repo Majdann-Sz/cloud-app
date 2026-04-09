@@ -1,8 +1,22 @@
 using backend_dotnet.Data;
 using backend_dotnet.Models;
 using Microsoft.EntityFrameworkCore;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddAzureKeyVault(
+    new Uri("https://tasks-keyvault-wrx86301.vault.azure.net/"),
+    new DefaultAzureCredential()
+);
+
+var connectionString =
+    builder.Configuration["DbConnectionString"];
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+
 
 // konfiguracja bazy danych
 builder.Services.AddDbContext<AppDbContext>(options =>
