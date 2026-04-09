@@ -5,28 +5,24 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ===== Azure Key Vault =====
 builder.Configuration.AddAzureKeyVault(
     new Uri("https://tasks-keyvault-wrx86301.vault.azure.net/"),
     new DefaultAzureCredential()
 );
 
-var connectionString =
-    builder.Configuration["DbConnectionString"];
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-
+// pobranie connection string z Key Vault
+var connectionString = builder.Configuration["DbConnectionString"];
 
 // konfiguracja bazy danych
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
-// Swagger
+// ===== Swagger =====
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS dla frontendu Azure
+// ===== CORS dla frontendu =====
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -39,11 +35,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Swagger
+// ===== Swagger =====
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// CORS
+// ===== CORS =====
 app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
