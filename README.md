@@ -53,6 +53,7 @@ Komunikacja między warstwami odbywa się z wykorzystaniem protokołu HTTPS (RES
 * [x] **Artefakt 1:** Architektura i struktura folderów.
 * [x] **Artefakt 2:** Środowisko wielokontenerowe uruchomione lokalnie (Docker Compose).
 * [x] **Artefakt 5:** System gotowy na chmurę.
+* [x] **Artefakt 7:** Azure key vault.
 
 - Backend: Node.js + Express
 - Frontend: React (Vite)
