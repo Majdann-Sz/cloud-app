@@ -2,6 +2,7 @@ using backend_dotnet.Data;
 using backend_dotnet.Models;
 using Microsoft.EntityFrameworkCore;
 using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
