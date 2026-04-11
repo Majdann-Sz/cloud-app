@@ -51,7 +51,7 @@ app.UseHttpsRedirection();
 // GET /tasks
 app.MapGet("/tasks", async (AppDbContext db) =>
 {
-    return await db.Tasks.ToListAsync();
+    return new[] { new { id = 999, title = "AutoDeploy działa 🚀" } };
 });
 
 // POST /tasks
