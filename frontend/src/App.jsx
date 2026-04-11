@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Tasks</h1>
+      <h1 style={{ color: "red" }}>Tasks</h1>
 
       <input
         value={title}
