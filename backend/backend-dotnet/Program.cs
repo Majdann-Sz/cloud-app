@@ -6,8 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // connection string z Azure App Service
 var connectionString =
-    builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? builder.Configuration["DbConnectionString"];
+    builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
