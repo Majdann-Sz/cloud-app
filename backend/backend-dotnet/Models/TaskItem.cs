@@ -1,11 +1,8 @@
-namespace backend_dotnet.Models
+namespace backend_dotnet.Models;
+
+public class TaskItem
 {
-    public class TaskItem
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Title { get; set; } = string.Empty;
-
-        public bool IsCompleted { get; set; } = false;
-    }
+    public string? Title { get; set; }
 }
