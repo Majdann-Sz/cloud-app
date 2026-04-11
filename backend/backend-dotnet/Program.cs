@@ -13,7 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 // );
 
 // ===== Connection string z Key Vault =====
-var connectionString = builder.Configuration["DbConnectionString"];
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? builder.Configuration["DbConnectionString"];
+    
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new Exception("Connection string not found");
+}
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
