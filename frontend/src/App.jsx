@@ -62,7 +62,6 @@ function App() {
   return (
     <div style={{ padding: 20 }}>
       <h1 style={{ color: "red" }}>Tasks</h1>
-      <h2>TEST DELETE BUTTON</h2>
 
       <input
         value={title}
