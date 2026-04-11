@@ -1,26 +1,11 @@
 using backend_dotnet.Data;
 using backend_dotnet.Models;
 using Microsoft.EntityFrameworkCore;
-using Azure.Identity;
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ===== Azure Key Vault =====
-// builder.Configuration.AddAzureKeyVault(
-//     new Uri("https://tasks-keyvault-wrx86301.vault.azure.net/"),
-//     new DefaultAzureCredential()
-// );
-
-// ===== Connection string z Key Vault =====
-var connectionString =
-    builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? builder.Configuration["DbConnectionString"];
-    
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new Exception("Connection string not found");
-}
+// ===== Connection string z konfiguracji Azure =====
+var connectionString = builder.Configuration["DbConnectionString"];
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -29,7 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ===== CORS dla frontendu Azure =====
+// ===== CORS =====
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -51,8 +36,7 @@ app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
-
-// ===== ENDPOINTY TASKS =====
+// ===== ENDPOINTY =====
 
 // GET
 app.MapGet("/tasks", async (AppDbContext db) =>
