@@ -1,81 +1,123 @@
 # Cloud Task Manager
 
-Autor: Szymon Majdański  
-Numer studenta: 96692
+Autor: **Szymon Majdański**  
+Numer studenta: **96692**
 
 ---
 
-## Opis projektu
+# Opis projektu
 
-Cloud Task Manager to chmurowa aplikacja webowa umożliwiająca zarządzanie zadaniami.  
-Użytkownik może się rejestrować, logować oraz wykonywać pełne operacje CRUD (tworzenie, odczyt, edycja, usuwanie) na swoich zadaniach.
+Cloud Task Manager to chmurowa aplikacja webowa umożliwiająca zarządzanie zadaniami (Tasks), wdrożona w środowisku **Microsoft Azure** w architekturze trójwarstwowej.
 
-Aplikacja została zaprojektowana zgodnie z architekturą trójwarstwową i będzie wdrożona w środowisku Microsoft Azure.
+Aplikacja pozwala użytkownikowi:
 
----
+- dodawać zadania
+- usuwać zadania
+- przeglądać listę zadań
+- oznaczać zadania jako wykonane
+- korzystać z aplikacji wdrożonej w chmurze Azure
 
-## Stos technologiczny
-
-| Warstwa        | Technologia |
-|---------------|------------|
-| Front-end     | React 19 + Vite |
-| Back-end      | Node.js 24 + Express |
-| Baza danych   | Azure SQL Database |
-| Konteneryzacja | Docker + Docker Compose |
-| Chmura        | Microsoft Azure |
+Projekt wykorzystuje automatyczne wdrażanie **CI/CD przez GitHub Actions**.
 
 ---
 
-## Mapowanie komponentów na usługi Azure
+# Stos technologiczny
+
+| Warstwa | Technologia |
+|--------|------------|
+| Frontend | React + Vite |
+| Backend | .NET Minimal API |
+| Testy | xUnit |
+| Baza danych | Azure SQL Database |
+| Chmura | Azure App Service |
+| Sekrety | Azure Key Vault |
+| Automatyzacja | GitHub Actions |
+
+---
+
+# Architektura systemu
+
+Aplikacja została zaprojektowana w architekturze trójwarstwowej:
+
+### Warstwa prezentacji
+Frontend React hostowany w Azure App Service
+
+### Warstwa logiki aplikacji
+Backend REST API (.NET Minimal API)
+
+### Warstwa danych
+Azure SQL Database
+
+Komunikacja między warstwami:
+
+React → HTTPS → .NET API → TCP → Azure SQL Database
+
+
+---
+
+# Mapowanie komponentów na usługi Azure
 
 | Komponent aplikacji | Usługa Azure |
 |---------------------|-------------|
-| Front-end           | Azure App Service (Web App) |
-| Back-end API        | Azure App Service (Web App) |
-| Baza danych         | Azure SQL Database |
-| Obrazy kontenerów   | Azure Container Registry (opcjonalnie) |
+| Frontend | Azure App Service |
+| Backend API | Azure App Service |
+| Baza danych | Azure SQL Database |
+| Sekrety aplikacji | Azure Key Vault |
+| Deployment | GitHub Actions |
 
 ---
 
-## Styl architektury
+# Endpointy REST API
 
-Aplikacja została zaprojektowana w oparciu o architekturę trójwarstwową:
+GET — pobranie listy zadań
 
-- Warstwa prezentacji (Front-end – React)
-- Warstwa logiki aplikacji (Back-end – REST API)
-- Warstwa danych (Azure SQL Database)
 
-Komunikacja między warstwami odbywa się z wykorzystaniem protokołu HTTPS (REST API) oraz TCP (połączenie z bazą danych).
+POST — dodanie zadania
+
+
+DELETE — usunięcie zadania
+
+
+PATCH — zmiana statusu zadania
+
 
 ---
-## Status projektu
 
-* [x] **Artefakt 1:** Architektura i struktura folderów.
-* [x] **Artefakt 2:** Środowisko wielokontenerowe uruchomione lokalnie (Docker Compose).
-* [x] **Artefakt 5:** System gotowy na chmurę.
-* [x] **Artefakt 7:** Azure key vault.
+## Status realizacji artefaktów
 
-- Backend: Node.js + Express
-- Frontend: React (Vite)
-- Database: PostgreSQL
-- Docker + Docker Compose
+| Artefakt | Status |
+|---------|--------|
+| Artefakt 1 | Architektura aplikacji |
+| Artefakt 2 | Środowisko Docker |
+| Artefakt 5 | Przygotowanie do chmury |
+| Artefakt 7 | Azure Key Vault |
+| Artefakt 8 | Testy xUnit + CI/CD + DELETE endpoint |
 
-## Funkcjonalności
+---
 
-- REST API CRUD dla tasks
-- React UI do dodawania zadań
-- Persistent PostgreSQL volume
-- Init.sql migrations
-- Dockerized environment
+## Uruchomienie lokalne projektu
 
-## Uruchomienie projektu
+### Backend
 
-Backend + DB:
+cd backend-dotnet
+dotnet run
 
-docker compose up --build
 
-Frontend:
+---
+
+### Frontend
+
 
 cd frontend
 npm install
 npm run dev
+
+
+---
+
+## Repozytorium projektu
+
+Projekt dostępny w GitHub:
+
+
+https://github.com/Majdann-SZ/cloud-app
