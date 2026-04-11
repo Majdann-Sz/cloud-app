@@ -7,10 +7,10 @@ using Azure.Extensions.AspNetCore.Configuration.Secrets;
 var builder = WebApplication.CreateBuilder(args);
 
 // ===== Azure Key Vault =====
-builder.Configuration.AddAzureKeyVault(
-    new Uri("https://tasks-keyvault-wrx86301.vault.azure.net/"),
-    new DefaultAzureCredential()
-);
+// builder.Configuration.AddAzureKeyVault(
+//     new Uri("https://tasks-keyvault-wrx86301.vault.azure.net/"),
+//     new DefaultAzureCredential()
+// );
 
 // ===== Connection string z Key Vault =====
 var connectionString = builder.Configuration["DbConnectionString"];
