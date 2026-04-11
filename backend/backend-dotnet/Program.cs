@@ -4,17 +4,19 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ===== Connection string z konfiguracji Azure =====
-var connectionString = builder.Configuration["DbConnectionString"];
+// connection string z Azure App Service
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? builder.Configuration["DbConnectionString"];
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// ===== Swagger =====
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ===== CORS =====
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -27,16 +29,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ===== Swagger =====
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// ===== CORS =====
 app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
-
-// ===== ENDPOINTY =====
 
 // GET
 app.MapGet("/tasks", async (AppDbContext db) =>
